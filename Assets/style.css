@@ -1,147 +1,120 @@
-body {
-    margin: 5px;
-}
-
-main {
-    display: flex;
-}
-
-section {
-    margin-top: 10px;
-}
-
-.header {
+header{
     display: flex;
     justify-content: center;
-    background: #4B79A1;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #283E51, #4B79A1);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #283E51, #4B79A1);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: #0f0c29;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    ;
+}
+h1{
+    color: white;
 }
 
-.search-panel {
+main{
+    border: 2px solid red;
+    display: flex;
+   
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 25%;
-    margin: 10px 20px 0 10px;
-    padding: 10px 0 10px 10px;
-    background-color: #DCDCDC;
+    height: 800px;
+    border: 2px solid blue;
 }
 
-.search-button-panel {
-    margin-left: -52px;
-}
-
-.city-list-box {
-    margin-top: 5px;
-}
-
-.city-name {
-    width: 89%;
-}
-
-.results-panel {
+#input{
     width: 75%;
-    padding-bottom: 10px;
-    visibility: hidden;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    
+    
 }
 
-.current-conditions-panel {
-    border: 1px solid #C0C0C0;
-    border-right: none;
-    padding-left: 10px;
-    padding-bottom: 30px;
+button{
+    width: 78%;
+    margin-top: 10px;
+    background-color: rgb(63, 137, 210);
+    color: white;
+    border-radius: 3px;
+
 }
 
-.name-block,
-.uv-index-block {
+
+.line{
+    width: 78%;
+    height: .2%;
+    background-color: black;
+}
+
+.middle{
+    display: flex;
+    flex-direction: column;
+    border: 2px dotted purple;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.outputSection{
+    border: 2px solid green;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 400px;
+}
+
+.forecastSection{
+    border: 2px solid yellow;
+    display: inline-block;
+    flex-direction: row;
+    width: 100%;
+    height: 400px;  
+}
+
+.flex{
     display: flex;
     align-items: center;
-}
-
-#uv-index {
-    margin-left: 5px;
-    padding: 5px 10px;
-}
-
-.forecast-panel {
-    padding-top: 50px;
-}
-
-.container {
-    display: inline;
-}
-
-.card-header,
-.card-body {
-    text-align: center;
-    color: white;
-}
-
-.card-header {
-    color: white;
-    background: #bdc3c7;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2c3e50, #bdc3c7);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin-left: 50px;
 
 }
 
-.card-body {
-    background: #4B79A1;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #283E51, #4B79A1);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #283E51, #4B79A1);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+.weather{
+    border: 2px solid black;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+   
+    
+    
 }
 
-
-
-/* Classes Added to Elements */
-
-.favorable {
-    background-color: green;
-    color: white;
-}
-
-.moderate {
-    background-color: yellow;
+.description {
     color: black;
+    text-transform: capitalize;
 }
 
-.severe {
-    background-color: red;
-    color: white;
+.temp{
+    color: black;
+    margin-left: 50px;
+}
+
+.city{
+    margin-left: 50px;
 }
 
 
-/* Viewports Styling*/
+.humidity{
+    margin-left: 50px;
+}
 
-@media screen and (max-width: 575px) {
-    .search-panel {
-        width: 40%;
-    }
+.wind{
+    margin-left: 50px;
+}
 
-    .search-button-panel {
-        margin-left: 0px;
-    }
+#searchHistory{
+    display: none;
+}
 
-    .search-panel h3 {
-        font-size: 15px;
-    }
-
-    .form-row {
-        display: block;
-        text-align: center;
-    }
-
-    .results-panel {
-        width: 60%;
-    }
+#searchList{
+    display: none;
 }
