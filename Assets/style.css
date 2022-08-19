@@ -111,10 +111,14 @@ button{
     margin-left: 50px;
 }
 
-#searchHistory{
-    display: none;
-}
+ #searchHistory{
+    /* display: none; */
+} 
 
-#searchList{
+/* #searchList{
     display: none;
+} */
+
+#firstSearch{
+
 }

@@ -1,4 +1,4 @@
-localStorage.clear()
+// localStorage.clear()
 
 
 const searchInput = document.getElementById('search')
@@ -53,7 +53,6 @@ let weather = {
     const { temp, humidity } = data.main;
     const { speed } = data.wind;
     document.querySelector(".city").innerText = "Weather in " + name;
-    document.getElementById('firstSearch').innerText = name;
     document.querySelector(".icon").src =
       "https://openweathermap.org/img/wn/" + icon + ".png";
     document.querySelector(".description").innerText = description;
@@ -63,6 +62,13 @@ let weather = {
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
     document.querySelector(".weather").classList.remove("loading");
+    firstSearch.innerText = name;
+    secondSearch.innerText = name;
+    thirdSearch.innerText = name;
+    fourthSearch.innerText = name;
+    fifthSearch.innerText = name;
+    sixthSearch.innerText = name;
+
   },
   search: function () {
     this.fetchWeather(document.querySelector(".search-bar").value);
@@ -76,6 +82,7 @@ document
     weather.search();
   });
 
+ 
 
 
 
