@@ -1,31 +1,77 @@
 // localStorage.clear()
 
-
-const searchInput = document.getElementById('search')
-const searchList = document.getElementById('searchList')
-const ul = document.getElementById('searchList')
-const firstSearch = document.getElementById('firstSearch')
-const secondSearch = document.getElementById('secondSearch')
-const thirdSearch = document.getElementById('thirdSearch')
-const fourthSearch = document.getElementById('fourthSearch')
-const fifthSearch = document.getElementById('fifthSearch')
-const sixthSearch = document.getElementById('sixthSearch')
-const clearSearch = document.getElementById('clear')
+const searchForm = document.querySelector("#search-form")
+const searchInput = document.querySelector('search-text')
+const recentSearches = document.querySelector("#recentSearches")
+const searchCountSpan = document.querySelector("#searchCount")
 
 const searchHistory = [];
-const addSearchHistory = (citySearches) => { };
 
-// const createRecentSearchElement = () => {
-//   const firstSearch = document.getElementById('firstSearch')
-//   // const secondSearch = document.getElementById('secondSearch')
-//   // const thirdSearch = document.getElementById('thirdSearch')
-//   // const fourthSearch = document.getElementById('fourthSearch')
-//   // const fifthSearch = document.getElementById('fifthSearch')
-//   // const sixthSearch = document.getElementById('sixthSearch')
+// Renders items in a list as <li> elements
+function renderSearchesFunction() {
+  //Clears list
+  recentSearches.innerHTML = "";
+  searchCountSpan.textContent = searchHistory.length;
 
-//   cityName.innerText = city
-//   firstSearch.append(cityName);
-// }
+  for (let i = 0; i < searchHistory.length; i++) {
+    let searchHistories = searchHistory[i];
+
+    let li = document.createElement("li")
+    li.textContent = searchHistories;
+    li.setAttribute("data-index", i)
+
+    let button = document.createElement("button");
+    button.textContent = "Complete"
+
+    li.appendChild(button);
+    recentSearches.appendChild(li);
+  }
+}
+
+function init() {
+  let storedSearches = JSON.parse(localStorage.getItem("searchHistory"))
+
+  if (storedSearches !== null) {
+    searchHistory = storedSearches;
+  }
+  renderSearchesFunction();
+}
+
+function storedSearches() {
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+
+searchForm.addEventListener("submit", function(event){
+  event.preventDefault();
+
+  let searchText = searchInput.value.trim();
+
+  if (searchText === "") {
+    return;
+  }
+    searchHistory.push(searchText);
+    searchInput.value = "";
+  
+    storedSearches();
+    renderSearchesFunction();
+
+});
+
+
+recentSearches.addEventListener('click', function(event){
+  let element = event.target;
+
+  if(element.matches("button") === true) {
+    let index = element.parentElement.getAttribute("data-index");
+    searchHistory.splice(index, 1);
+
+    storedSearches();
+    renderSearchesFunction(); 
+  }
+});
+
+
+init()
 
 
 
@@ -62,12 +108,7 @@ let weather = {
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
     document.querySelector(".weather").classList.remove("loading");
-    firstSearch.innerText = name;
-    secondSearch.innerText = name;
-    thirdSearch.innerText = name;
-    fourthSearch.innerText = name;
-    fifthSearch.innerText = name;
-    sixthSearch.innerText = name;
+
 
   },
   search: function () {
@@ -80,9 +121,7 @@ document
   .querySelector(".search button")
   .addEventListener("click", function () {
     weather.search();
+    storedSearches()
+    renderSearchesFunction()
   });
-
- 
-
-
 
