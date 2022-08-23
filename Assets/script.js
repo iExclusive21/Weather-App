@@ -1,11 +1,11 @@
 // localStorage.clear()
 
-const searchForm = document.querySelector("#search-form")
-const searchInput = document.querySelector('search-text')
-const recentSearches = document.querySelector("#recentSearches")
-const searchCountSpan = document.querySelector("#searchCount")
+let searchForm = document.querySelector("#search-form")
+let  searchInput = document.querySelector("search-text")
+let  recentSearches = document.querySelector("#recentSearches")
+let  searchCountSpan = document.querySelector("#searchCount")
 
-const searchHistory = [];
+let  searchHistory = [];
 
 // Renders items in a list as <li> elements
 function renderSearchesFunction() {
@@ -29,10 +29,10 @@ function renderSearchesFunction() {
 }
 
 function init() {
-  let storedSearches = JSON.parse(localStorage.getItem("searchHistory"))
+  let storeSearches = JSON.parse(localStorage.getItem("searchHistory"))
 
-  if (storedSearches !== null) {
-    searchHistory = storedSearches;
+  if (storeSearches !== null) {
+    searchHistory = storeSearches;
   }
   renderSearchesFunction();
 }
@@ -58,21 +58,17 @@ searchForm.addEventListener("submit", function(event){
 });
 
 
-recentSearches.addEventListener('click', function(event){
-  let element = event.target;
+document.querySelector(".search button")
+.addEventListener("click", init()) 
+  
 
-  if(element.matches("button") === true) {
-    let index = element.parentElement.getAttribute("data-index");
-    searchHistory.splice(index, 1);
+  // if(element.matches("button") === true) {
+  //   let index = element.parentElement.getAttribute("data-index");
+  //   searchHistory.splice(index, 1);
 
     storedSearches();
     renderSearchesFunction(); 
-  }
-});
-
-
-init()
-
+  
 
 
 let weather = {
@@ -114,6 +110,7 @@ let weather = {
   search: function () {
     this.fetchWeather(document.querySelector(".search-bar").value);
   },
+  
 };
 
 
@@ -121,7 +118,9 @@ document
   .querySelector(".search button")
   .addEventListener("click", function () {
     weather.search();
-    storedSearches()
-    renderSearchesFunction()
+    init();
+    renderSearchesFunction();
+    console.log(renderSearchesFunction)
+    storedSearches();
   });
 
