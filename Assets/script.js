@@ -1,4 +1,4 @@
-// localStorage.clear()
+localStorage.clear()
 
 /**
  * handleWhatMyFunctionDoes
@@ -66,9 +66,12 @@ let weather = {
 // }
 
 clearBtn.addEventListener("click", function(){
-  recentSearches.style.display = "none";
-  localStorage.clear();
-  searchCountSpan.style.display = "none";
+  // recentSearches.location.reload(true);
+  // localStorage.clear();
+  // searchCountSpan.location.reload(true);
+  // weather.fetchWeather
+
+  reload = location.reload();
 });
 
 function renderSavedSearches() {
