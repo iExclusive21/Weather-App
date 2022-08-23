@@ -1,84 +1,37 @@
 // localStorage.clear()
 
+/**
+ * handleWhatMyFunctionDoes
+ */
+
+let searchBtn = document.querySelector(".search button");
 let searchForm = document.querySelector("#search-form")
-let  searchInput = document.querySelector("search-text")
-let  recentSearches = document.querySelector("#recentSearches")
-let  searchCountSpan = document.querySelector("#searchCount")
+let searchInput = document.getElementById("search-text")
+let recentSearches = document.getElementById("recentSearches")
+let searchCountSpan = document.querySelector("#searchCount")
+let clearBtn = document.getElementById("clear")
+let searchHistory = [];
 
-let  searchHistory = [];
-
-// Renders items in a list as <li> elements
-function renderSearchesFunction() {
-  //Clears list
-  recentSearches.innerHTML = "";
-  searchCountSpan.textContent = searchHistory.length;
-
-  for (let i = 0; i < searchHistory.length; i++) {
-    let searchHistories = searchHistory[i];
-
-    let li = document.createElement("li")
-    li.textContent = searchHistories;
-    li.setAttribute("data-index", i)
-
-    let button = document.createElement("button");
-    button.textContent = "Complete"
-
-    li.appendChild(button);
-    recentSearches.appendChild(li);
-  }
-}
-
-function init() {
-  let storeSearches = JSON.parse(localStorage.getItem("searchHistory"))
-
-  if (storeSearches !== null) {
-    searchHistory = storeSearches;
-  }
-  renderSearchesFunction();
-}
-
-function storedSearches() {
-  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-}
-
-searchForm.addEventListener("submit", function(event){
-  event.preventDefault();
-
-  let searchText = searchInput.value.trim();
-
-  if (searchText === "") {
-    return;
-  }
-    searchHistory.push(searchText);
-    searchInput.value = "";
-  
-    storedSearches();
-    renderSearchesFunction();
-
-});
-
-
-document.querySelector(".search button")
-.addEventListener("click", init()) 
-  
-
-  // if(element.matches("button") === true) {
-  //   let index = element.parentElement.getAttribute("data-index");
-  //   searchHistory.splice(index, 1);
-
-    storedSearches();
-    renderSearchesFunction(); 
-  
 
 
 let weather = {
   "apiKey": "f433c1e7958c1d2db885ae8ccc58b643",
-  fetchWeather: function (city) {
+  fetchWeather: function () {
+    // is location "event"?
+    const city = typeof location === 'object' ? document.querySelector(".search-bar").value : location;
+
+    // let city;
+    // if (typeof location === 'object') {
+    //   city = document.querySelector(".search-bar").value
+    // } else {
+    //   city = location;
+    // }
+
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       city +
       "&units=imperial&appid=" +
-      this.apiKey
+      weather.apiKey
     )
       .then((response) => {
         if (!response.ok) {
@@ -87,7 +40,7 @@ let weather = {
         }
         return response.json();
       })
-      .then((data) => this.displayWeather(data));
+      .then((data) => weather.displayWeather(data));
   },
   displayWeather: function (data) {
     const { name } = data;
@@ -104,23 +57,63 @@ let weather = {
     document.querySelector(".wind").innerText =
       "Wind speed: " + speed + " km/h";
     document.querySelector(".weather").classList.remove("loading");
-
-
-  },
-  search: function () {
-    this.fetchWeather(document.querySelector(".search-bar").value);
-  },
-  
+    handleSetSavedSearches();
+    renderSavedSearches();
+  }
 };
+// const clearLocalStorage = () => {
+  
+// }
+
+clearBtn.addEventListener("click", function(){
+  recentSearches.style.display = "none";
+  localStorage.clear();
+  searchCountSpan.style.display = "none";
+});
+
+function renderSavedSearches() {
+  let storedSearches = JSON.parse(localStorage.getItem("searchHistory"))
+
+  if (storedSearches !== null) {
+    searchHistory = storedSearches;
+  }
+
+  //Clears list
+  recentSearches.innerHTML = "";
+  searchCountSpan.textContent = searchHistory.length;
+
+  for (let i = 0; i < searchHistory.length; i++) {
+    let searchHistories = searchHistory[i];
+
+    let li = document.createElement("button")
+    li.textContent = searchHistories;
+    li.setAttribute("data-index", i)
+    li.addEventListener('click', function () {
+      weather.fetchWeather(searchHistories);
+    })
+    recentSearches.appendChild(li);
+  }
+}
+
+function handleSetSavedSearches() {
+  let searchText = searchInput.value.trim();
+
+  if (searchText === "") {
+    return;
+  }
+
+  searchHistory.push(searchText);
+  searchInput.value = "";
+
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
 
 
-document
-  .querySelector(".search button")
-  .addEventListener("click", function () {
-    weather.search();
-    init();
-    renderSearchesFunction();
-    console.log(renderSearchesFunction)
-    storedSearches();
-  });
+
+searchBtn.addEventListener("click", weather.fetchWeather);
+
+
+
+
+renderSavedSearches();
 

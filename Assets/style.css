@@ -32,7 +32,7 @@ main{
 }
 
 button{
-    width: 78%;
+    width: 170px;
     margin-top: 10px;
     background-color: rgb(63, 137, 210);
     color: white;
@@ -123,3 +123,13 @@ button{
 
 }
 
+li {
+    list-style-type: none;
+    background-color: grey;
+}
+
+#recentSearches {
+    padding: 0;
+    text-align: center;
+    
+}
