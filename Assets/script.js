@@ -1,8 +1,4 @@
-localStorage.clear()
-
-/**
- * handleWhatMyFunctionDoes
- */
+// localStorage.clear()
 
 let searchBtn = document.querySelector(".search button");
 let searchForm = document.querySelector("#search-form")
@@ -65,14 +61,14 @@ let weather = {
   
 // }
 
-clearBtn.addEventListener("click", function(){
-  // recentSearches.location.reload(true);
-  // localStorage.clear();
-  // searchCountSpan.location.reload(true);
-  // weather.fetchWeather
+// clearBtn.addEventListener("click", function(){
+//   // recentSearches.location.reload(true);
+//   // localStorage.clear();
+//   // searchCountSpan.location.reload(true);
+//   // weather.fetchWeather
 
-  reload = location.reload();
-});
+//   reload = location.reload();
+// });
 
 function renderSavedSearches() {
   let storedSearches = JSON.parse(localStorage.getItem("searchHistory"))
