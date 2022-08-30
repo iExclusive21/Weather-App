@@ -38,6 +38,10 @@ let weather = {
       })
       .then((data) => weather.displayWeather(data));
   },
+
+//https://api.openweathermap.org/data/2.5/weather?q=atlanta&units=imperial&appid=
+
+
   displayWeather: function (data) {
     const { name } = data;
     const { icon, description } = data.weather[0];
@@ -55,20 +59,59 @@ let weather = {
     document.querySelector(".weather").classList.remove("loading");
     handleSetSavedSearches();
     renderSavedSearches();
-  }
+  } 
 };
-// const clearLocalStorage = () => {
-  
-// }
 
-// clearBtn.addEventListener("click", function(){
-//   // recentSearches.location.reload(true);
-//   // localStorage.clear();
-//   // searchCountSpan.location.reload(true);
-//   // weather.fetchWeather
+//forecast function
 
-//   reload = location.reload();
-// });
+let weatherForecast = {
+  "apiKey": "f433c1e7958c1d2db885ae8ccc58b643",
+  fetchWeatherForecast: function () {
+    const city = typeof location === 'object' ? document.querySelector(".search-bar").value : location;
+
+    fetch(
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      city + 
+      "&exclude=current,minutely,hourly,alerts&units=imperial&appid=" +
+      weather.apiKey
+    )
+      .then((response) => {
+        if (!response.ok) {
+          alert("No weather found.");
+          throw new Error("No weather found.");
+        }
+        return response.json();
+      })
+      .then((data) => weather.displayWeatherForecast(data));
+  },
+
+  displayWeatherForecast: function (data) {
+    const { name } = data;
+    const { icon, description } = data.weather[0];
+    const { temp, humidity } = data.main;
+    const { speed } = data.wind;
+    document.querySelector(".forecastDate").innerText = name;
+    document.querySelector(".forecastIcon").src =
+      "https://openweathermap.org/img/wn/" + icon + ".png";
+    document.querySelector(".forecastDescription").innerText = description;
+    document.querySelector(".forecastTemp").innerText = temp + "°F";
+    document.querySelector(".forecastHumidity").innerText =
+      "Humidity: " + humidity + "%";
+    document.querySelector(".forecastWind").innerText =
+      "Wind speed: " + speed + " km/h";
+    document.querySelector(".forecastWeather").classList.remove("loading");
+    handleSetSavedSearches();
+    renderSavedSearches();
+  } 
+};
+
+
+
+//5 Day Forecast api call 
+//https://api.openweathermap.org/data/2.5/forecast?q=denver&units=imperial&appid=f433c1e7958c1d2db885ae8ccc58b643
+
+
+
 
 function renderSavedSearches() {
   let storedSearches = JSON.parse(localStorage.getItem("searchHistory"))
@@ -109,7 +152,7 @@ function handleSetSavedSearches() {
 
 
 
-searchBtn.addEventListener("click", weather.fetchWeather);
+searchBtn.addEventListener("click", weather.fetchWeather, weatherForecast.fetchWeatherForecast);
 
 
 
