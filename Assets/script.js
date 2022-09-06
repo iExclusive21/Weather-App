@@ -59,10 +59,13 @@ let weather = {
     document.querySelector(".weather").classList.remove("loading");
     handleSetSavedSearches();
     renderSavedSearches();
+    weatherForecast.fetchWeatherForecast();
   } 
 };
 
+
 //forecast function
+//https://api.openweathermap.org/data/2.5/forecast?q=philadelphia&exclude=current,minutely,hourly,alerts&units=imperial&appid=
 
 let weatherForecast = {
   "apiKey": "f433c1e7958c1d2db885ae8ccc58b643",
@@ -72,7 +75,7 @@ let weatherForecast = {
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city + 
-      "&exclude=current,minutely,hourly,alerts&units=imperial&appid=" +
+      "&units=imperial&appid=" +
       weather.apiKey
     )
       .then((response) => {
@@ -82,10 +85,13 @@ let weatherForecast = {
         }
         return response.json();
       })
-      .then((data) => weather.displayWeatherForecast(data));
+      .then((data) => weatherForecast.displayWeatherForecast(data));
   },
 
   displayWeatherForecast: function (data) {
+    let filteredData = data.list.filter((forecastItem)=>{
+      return forecastItem.dt_txt.includes("12:00:00")
+  })
     const { name } = data;
     const { icon, description } = data.weather[0];
     const { temp, humidity } = data.main;
@@ -93,15 +99,15 @@ let weatherForecast = {
     document.querySelector(".forecastDate").innerText = name;
     document.querySelector(".forecastIcon").src =
       "https://openweathermap.org/img/wn/" + icon + ".png";
-    document.querySelector(".forecastDescription").innerText = description;
+    // document.querySelector(".forecastDescription").innerText = description;
     document.querySelector(".forecastTemp").innerText = temp + "°F";
     document.querySelector(".forecastHumidity").innerText =
       "Humidity: " + humidity + "%";
     document.querySelector(".forecastWind").innerText =
       "Wind speed: " + speed + " km/h";
     document.querySelector(".forecastWeather").classList.remove("loading");
-    handleSetSavedSearches();
-    renderSavedSearches();
+    // handleSetSavedSearches();
+    // renderSavedSearches();
   } 
 };
 
@@ -145,7 +151,7 @@ function handleSetSavedSearches() {
   }
 
   searchHistory.push(searchText);
-  searchInput.value = "";
+  // searchInput.value = "";
 
   localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
