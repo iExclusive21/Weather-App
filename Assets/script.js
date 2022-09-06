@@ -92,8 +92,11 @@ let weatherForecast = {
     let filteredData = data.list.filter((forecastItem)=>{
       return forecastItem.dt_txt.includes("12:00:00")
   })
-    const { name } = data;
+  console.log(filteredData)
+    const date = data.dt_txt;
+    console.log(date)
     const { icon, description } = data.weather[0];
+    console.log(description)
     const { temp, humidity } = data.main;
     const { speed } = data.wind;
     document.querySelector(".forecastDate").innerText = name;
