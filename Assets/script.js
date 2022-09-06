@@ -93,24 +93,24 @@ let weatherForecast = {
       return forecastItem.dt_txt.includes("12:00:00")
   })
   console.log(filteredData)
-    const date = data.dt_txt;
-    console.log(date)
-    const { icon, description } = data.weather[0];
-    console.log(description)
-    const { temp, humidity } = data.main;
-    const { speed } = data.wind;
-    document.querySelector(".forecastDate").innerText = name;
+  for (let i = 0; i < filteredData.length; i++) {
+    const date = filteredData[i].dt_txt;
+    const forecastTemp = filteredData[i].main.temp;
+    const forecastHumidity = filteredData[i].main.humidity;
+    const forecastIcon = filteredData[i].weather[0].icon;
+    const forecastDescription = filteredData[i].weather[0].description;
+    const forecastSpeed = filteredData[i].wind.speed
+    document.querySelector(".forecastDate").innerText = date;
     document.querySelector(".forecastIcon").src =
-      "https://openweathermap.org/img/wn/" + icon + ".png";
+      "https://openweathermap.org/img/wn/" + forecastIcon + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
-    document.querySelector(".forecastTemp").innerText = temp + "°F";
+    document.querySelector(".forecastTemp").innerText = forecastTemp + "°F";
     document.querySelector(".forecastHumidity").innerText =
-      "Humidity: " + humidity + "%";
+      "Humidity: " + forecastHumidity + "%";
     document.querySelector(".forecastWind").innerText =
-      "Wind speed: " + speed + " km/h";
+      "Wind speed: " + forecastSpeed + " km/h";
     document.querySelector(".forecastWeather").classList.remove("loading");
-    // handleSetSavedSearches();
-    // renderSavedSearches();
+  }
   } 
 };
 
