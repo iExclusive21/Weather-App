@@ -52,7 +52,9 @@ button{
     flex-direction: column;
     /* border: 2px dotted purple; */
     width: 100%;
+    height: 100%;
     align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .outputSection{
@@ -139,10 +141,11 @@ li {
     /* border: 2px solid yellow; */
     flex-direction: row;
     width: 100%;
-    height: 400px;
+    height: 100%;
     background-color: grey;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .dayOne{

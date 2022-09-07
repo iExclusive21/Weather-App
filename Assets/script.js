@@ -1,4 +1,4 @@
-localStorage.clear()
+
 
 let searchBtn = document.querySelector(".search button");
 let searchForm = document.querySelector("#search-form")
@@ -92,7 +92,7 @@ let weatherForecast = {
     const forecastIcon = filteredData[0].weather[0].icon;
     const forecastDescription = filteredData[0].weather[0].description;
     const forecastSpeed = filteredData[0].wind.speed
-    document.querySelector(".forecastDate").innerText = date;
+    document.querySelector(".forecastDate").innerText = date + " pm";
     document.querySelector(".forecastIcon").src =
       "https://openweathermap.org/img/wn/" + forecastIcon + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
@@ -109,7 +109,7 @@ let weatherForecast = {
     const forecastIcon1 = filteredData[1].weather[0].icon;
     const forecastDescription1 = filteredData[1].weather[0].description;
     const forecastSpeed1 = filteredData[1].wind.speed
-    document.querySelector(".forecastDate1").innerText = date1;
+    document.querySelector(".forecastDate1").innerText = date1 + " pm";
     document.querySelector(".forecastIcon1").src =
       "https://openweathermap.org/img/wn/" + forecastIcon1 + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
@@ -126,7 +126,7 @@ let weatherForecast = {
     const forecastIcon2 = filteredData[2].weather[0].icon;
     const forecastDescription2 = filteredData[2].weather[0].description;
     const forecastSpeed2 = filteredData[2].wind.speed
-    document.querySelector(".forecastDate2").innerText = date2;
+    document.querySelector(".forecastDate2").innerText = date2 + " pm";
     document.querySelector(".forecastIcon2").src =
       "https://openweathermap.org/img/wn/" + forecastIcon2 + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
@@ -143,7 +143,7 @@ let weatherForecast = {
     const forecastIcon3 = filteredData[3].weather[0].icon;
     const forecastDescription3 = filteredData[3].weather[0].description;
     const forecastSpeed3 = filteredData[3].wind.speed
-    document.querySelector(".forecastDate3").innerText = date3;
+    document.querySelector(".forecastDate3").innerText = date3 + " pm";
     document.querySelector(".forecastIcon3").src =
       "https://openweathermap.org/img/wn/" + forecastIcon3 + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
@@ -160,7 +160,7 @@ let weatherForecast = {
     const forecastIcon4 = filteredData[4].weather[0].icon;
     const forecastDescription4 = filteredData[4].weather[0].description;
     const forecastSpeed4 = filteredData[4].wind.speed
-    document.querySelector(".forecastDate4").innerText = date4;
+    document.querySelector(".forecastDate4").innerText = date4 + " pm";
     document.querySelector(".forecastIcon4").src =
       "https://openweathermap.org/img/wn/" + forecastIcon4 + ".png";
     // document.querySelector(".forecastDescription").innerText = description;
@@ -189,7 +189,7 @@ function renderSavedSearches() {
     searchHistory = storedSearches;
   }
 
-  //Clears list
+ 
   recentSearches.innerHTML = "";
   searchCountSpan.textContent = searchHistory.length;
 
@@ -227,4 +227,11 @@ searchBtn.addEventListener("click", weather.fetchWeather, weatherForecast.fetchW
 
 
 renderSavedSearches();
-clearBtn.addEventListener("click", )
+ 
+//Clears list
+function clearSavedSearches(){
+  localStorage.clear();
+  window.parent.location = window.parent.location.href;
+};
+
+clearBtn.addEventListener("click",clearSavedSearches);
