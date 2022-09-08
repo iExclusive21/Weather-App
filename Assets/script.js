@@ -31,6 +31,27 @@ let weather = {
       .then((data) => weather.displayWeather(data));
   },
 
+  fetchWeather2: function (event,buttonTest) {
+    console.log("calling fetchWeather2", buttonTest, event.srcElement.textContent)
+    
+  // const city = typeof location === 'object' ? document.querySelector(".search-bar").value : location;
+  const city = event.srcElement.textContent;
+  fetch(
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      city +
+      "&units=imperial&appid=" +
+      weather.apiKey
+    )
+      .then((response) => {
+        if (!response.ok) {
+          alert("No weather found.");
+          throw new Error("No weather found.");
+        }
+        return response.json();
+      })
+      .then((data) => weather.displayWeather(data));
+  },
+
 //https://api.openweathermap.org/data/2.5/weather?q=atlanta&units=imperial&appid=
 
 
@@ -199,8 +220,8 @@ function renderSavedSearches() {
     let li = document.createElement("button")
     li.textContent = searchHistories;
     li.setAttribute("data-index", i)
-    li.addEventListener('click', function () {
-      weather.fetchWeather(searchHistories);
+    li.addEventListener('click', function (event) {
+      weather.fetchWeather2(event,searchHistory);
     })
     recentSearches.appendChild(li);
   }
@@ -223,8 +244,13 @@ function handleSetSavedSearches() {
 
 searchBtn.addEventListener("click", weather.fetchWeather, weatherForecast.fetchWeatherForecast);
 
+//attempting to get the buttons to work 
+function historyButton(event) {
 
-
+  var btn = event.target;
+  var search = btn.textcontent;
+  weather.fetchWeather, weatherForecast.fetchWeatherForecast;
+}
 
 renderSavedSearches();
  
