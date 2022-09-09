@@ -33,8 +33,6 @@ let weather = {
 
   fetchWeather2: function (event,buttonTest) {
     console.log("calling fetchWeather2", buttonTest, event.srcElement.textContent)
-    
-  // const city = typeof location === 'object' ? document.querySelector(".search-bar").value : location;
   const city = event.srcElement.textContent;
   fetch(
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -85,6 +83,24 @@ let weatherForecast = {
   fetchWeatherForecast: function () {
     const city = typeof location === 'object' ? document.querySelector(".search-bar").value : location;
 
+    fetch(
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      city + 
+      "&units=imperial&appid=" +
+      weather.apiKey
+    )
+      .then((response) => {
+        if (!response.ok) {
+          alert("No weather found.");
+          throw new Error("No weather found.");
+        }
+        return response.json();
+      })
+      .then((data) => weatherForecast.displayWeatherForecast(data));
+  },
+  fetchWeatherForecast2: function (event,buttonTest) {
+    console.log("calling fetchWeatherForecast2", buttonTest, event.srcElement.textContent)
+    const city = event.srcElement.textContent;
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city + 
@@ -221,7 +237,7 @@ function renderSavedSearches() {
     li.textContent = searchHistories;
     li.setAttribute("data-index", i)
     li.addEventListener('click', function (event) {
-      weather.fetchWeather2(event,searchHistory);
+      weather.fetchWeather2(event,searchHistory), weatherForecast.fetchWeatherForecast2(event,searchHistory);
     })
     recentSearches.appendChild(li);
   }
